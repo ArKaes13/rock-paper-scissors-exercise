@@ -8,49 +8,53 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
+    var outcomeText = document.createElement('p');
     if (playerSelection == 'rock') {
         if (computerSelection == 'paper') {
-            console.log(`You Lose! ${computerSelection} beats ${playerSelection}.`);
-            computerScore += 1;
+            outcomeText.textContent = `You Lose! ${computerSelection} beats ${playerSelection}.`;
+            document.querySelector('#computerScore').textContent = `Computer Score: ${computerScore += 1}`;
         } else if (computerSelection == 'scissors') {
-            console.log(`You Win! ${playerSelection} beats ${computerSelection}.`);
-            playerScore += 1;
+            outcomeText.textContent = `You Win! ${playerSelection} beats ${computerSelection}.`;
+            document.querySelector('#playerScore').textContent = `Player Score: ${playerScore += 1}`;
         } else {
-            console.log(`You Tied!`);
+            outcomeText.textContent = `You Tied!`;
         }
     } else if (playerSelection == 'paper') {
         if (computerSelection == 'scissors') {
-            console.log(`You Lose! ${computerSelection} beats ${playerSelection}.`);
-            computerScore += 1;
+            outcomeText.textContent = `You Lose! ${computerSelection} beats ${playerSelection}.`;
+            document.querySelector('#computerScore').textContent = `Computer Score: ${computerScore += 1}`;
         } else if (computerSelection == 'rock') {
-            console.log(`You Win! ${playerSelection} beats ${computerSelection}.`);
-            playerScore += 1;
+            outcomeText.textContent = `You Win! ${playerSelection} beats ${computerSelection}.`;
+            document.querySelector('#playerScore').textContent = `Player Score: ${playerScore += 1}`;
         } else {
-            console.log(`You Tied!`);
+            outcomeText.textContent = `You Tied!`;
         }
     } else {
         if (computerSelection == 'rock') {
-            console.log(`You Lose! ${computerSelection} beats ${playerSelection}.`);
-            computerScore += 1;
+            outcomeText.textContent = `You Lose! ${computerSelection} beats ${playerSelection}.`;
+            document.querySelector('#computerScore').textContent = `Computer Score: ${computerScore += 1}`;
         } else if (computerSelection == 'paper') {
-            console.log(`You Win! ${playerSelection} beats ${computerSelection}.`);
-            playerScore += 1;
+            outcomeText.textContent = `You Win! ${playerSelection} beats ${computerSelection}.`;
+            document.querySelector('#playerScore').textContent = `Player Score: ${playerScore += 1}`;
         } else {
-            console.log(`You Tied!`);
+            outcomeText.textContent = `You Tied!`;
         }
     }
+    if (playerScore == 5 || computerScore == 5) {
+        if (playerScore > computerScore) {
+            outcomeText.textContent = `You won the game! Refresh to start again.`;
+        } else {
+            outcomeText.textContent = `You lost the game! Refresh to start again.`;
+        }
+    }
+    document.querySelector('.scrollBox').appendChild(outcomeText);
 }
 
-function game() {
-    for (i = 0; i < 5; i++) {
-        var playerChoice = prompt('Choose "rock", "paper", or "scissors": ').toLowerCase();
-        playRound(playerChoice, getComputerChoice());
-    }
-    if (playerScore > computerScore) {
-        console.log(`You won the game! ${playerScore} to ${computerScore}.`);
-    } else {
-        console.log(`You lost the game! ${computerScore} to ${playerScore}.`)
-    }
+const buttons = document.querySelectorAll('.btn');
+for (button of buttons) {
+    button.addEventListener('click', (event) => {
+        playRound(event.srcElement.id, getComputerChoice());
+    })
 }
 
-game();
+
